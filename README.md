@@ -32,7 +32,7 @@ curl -s http://127.0.0.1:5050/__proxy__/health
 | Переменная    | Пример                            |
 | ------------- | --------------------------------- |
 | `PORT`        | `5050`                            |
-| `PUBLIC_DOMAIN` | `https://gram.defstrange.ru`    |
+| `PUBLIC_DOMAIN` | `https://example.relay.org`     |
 | `TELEGRAM_ROOT` | `https://web.telegram.org`      |
 
 ## Nginx и TLS
