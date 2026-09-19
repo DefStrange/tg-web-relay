@@ -17,6 +17,10 @@
 - `src/workerPatch.js` — рантайм-патч для Web Worker'ов (там живет MTProto), вшивается в отдаваемые `*worker*.js` статически
 - `public/client-patch.js` — клиентский патч: гасит ServiceWorker, перехватывает `fetch`/`XHR`/`WebSocket`/`EventSource`/`Worker`/`SharedWorker` в рантайме
 
+## Первый визит
+
+При первой навигации на `/`, `/a/`, `/k/` без cookie согласия показывается промежуточный экран tg-web-relay: что это прокси, где оригинал (`web.telegram.org`), ссылка на исходники. Кнопка «Продолжить» ставит cookie `tgw_agree=1` на год и ведет дальше. API, ассеты и WebSocket под гейт не попадают. Плюс: `robots.txt` закрыт от индексации (`Disallow: /`), в страницы добавляется `canonical` на первоисточник, все проксированные ответы несут заголовок `X-Relayed-By: tg-web-relay`.
+
 ## Быстрый старт
 
 ```bash

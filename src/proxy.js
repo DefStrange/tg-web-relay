@@ -102,6 +102,7 @@ async function handleProxy(req, res, targetHost, targetPath) {
 
   res.setHeader('access-control-allow-origin', config.PUBLIC_DOMAIN);
   res.setHeader('access-control-allow-credentials', 'true');
+  res.setHeader('x-relayed-by', 'tg-web-relay');
 
   if (upstream.status === 204 || upstream.status === 304 || method === 'HEAD') {
     res.end();
@@ -136,7 +137,7 @@ async function handleProxy(req, res, targetHost, targetPath) {
     if (isHtml) {
       const text = buf.toString('utf8');
       res.setHeader('content-type', 'text/html; charset=utf-8');
-      res.send(rewriter.rewriteHtml(text));
+      res.send(rewriter.rewriteHtml(text, `https://${targetHost}${targetPath}`));
       return;
     }
     if (isJs) {

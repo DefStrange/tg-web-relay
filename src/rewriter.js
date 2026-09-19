@@ -68,7 +68,7 @@ function rewriteJsText(js) {
 
 const URL_ATTRS = ['src', 'href', 'action', 'poster', 'data-src', 'data-href', 'content'];
 
-function rewriteHtml(html) {
+function rewriteHtml(html, canonicalUrl) {
   const $ = cheerio.load(html, { decodeEntities: false });
 
   $('meta[http-equiv]').each((_, el) => {
@@ -117,6 +117,9 @@ function rewriteHtml(html) {
   const head = $('head');
   if (head.length) {
     head.prepend('<script src="/__proxy__/client-patch.js" data-proxy-skip="1"></script>');
+    if (canonicalUrl && !$('link[rel="canonical"]').length) {
+      head.append(`<link rel="canonical" href="${String(canonicalUrl).replace(/"/g, '%22')}">`);
+    }
   }
 
   return $.html();
